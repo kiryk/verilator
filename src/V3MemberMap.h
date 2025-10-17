@@ -78,10 +78,10 @@ private:
             for (AstNode* itemp = anodep->stmtsp(); itemp; itemp = itemp->nextp()) {
                 if (const AstScope* const scopep = VN_CAST(itemp, Scope)) {
                     for (AstNode* blockp = scopep->blocksp(); blockp; blockp = blockp->nextp()) {
-                        memberInsert(mmapr, blockp);
+                        if (!blockp->name().empty()) memberInsert(mmapr, blockp);
                     }
                 } else {
-                    memberInsert(mmapr, itemp);
+                    if (!itemp->name().empty()) memberInsert(mmapr, itemp);
                 }
             }
         } else if (const AstNodeUOrStructDType* const anodep
